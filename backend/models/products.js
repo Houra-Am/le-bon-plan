@@ -6,7 +6,8 @@ const productsSchema = new Mongoose.Schema({
     locationOfProduct: {Type: String, required = true},
     postedBy: {Type: String, required = true},
     dateOfPost: {Type: Date, required = true},
-    priceOfProduct: {Type: Number, required = true}
+    priceOfProduct: {Type: Number, required = true},
+    imageOfProduct: {type: File, required = true}
 });
 
 const productsModel = mongoose.model("products", productsSchema);
