@@ -1,23 +1,37 @@
-const express = require ("express");
-const bodyParser = require("body-parser");
-const bcryptjs = require("bcryptjs");
-const mongoose = require ("mongoose");
-const cors = require ("cors");
-const jwt = require("jsonwebtoken");
-//const config = require("./config");
-//const signUpModel = require ("./models/Signup");
-const port = 8000;
+const express = require("express");
 const app = express();
+const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
+const config = require("./config");
 
+const cors = require("cors");
+const authRoutes = require("./routes/auth.route");
+const adminRoutes = require("./routes/admin.route");
+const uploadRoutes = require("./routes/upload.route");
+
+mongoose.connect(
+  "mongodb://localhost:27017/lebonplan",
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  },
+  () => {
+    console.log("DB connected");
+  },
+  (err) => {
+    if (err) {
+      console.log(err);
+    }
+  }
+);
 
 app.use(bodyParser.json());
 app.use(cors());
 
-app.listen(port, () => {
-    console.log("server connected on port " + port);
-})
+app.use("/auth", authRoutes);
+app.use("/admin", adminRoutes);
+app.use("/upload", uploadRoutes);
 
-mongoose.connect("mongodb://localhost:27017/lebonplan", {useNewUrlParser: true, useUnifiedTopology: true},
-() => {
-    console.log("DB connected");
+app.listen(config.port, () => {
+  console.log("server ready " + config.port);
 });
