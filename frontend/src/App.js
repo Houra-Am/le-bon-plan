@@ -7,6 +7,7 @@ import Login from "./views/Login"
 import Signup from "./views/Signup"
 import Home from "./views/Home"
 import Profil from "./views/Profil"
+import AddProduct from "./views/addProduct"
 
 function App() {
   return (
