@@ -3,7 +3,6 @@ const mongoose = require("mongoose");
 const userSchema = new mongoose.Schema({
   userName: {
     type: String,
-    unique: true,
     require: true,
   },
   name: {
@@ -20,6 +19,12 @@ const userSchema = new mongoose.Schema({
     min: 6,
     max: 10,
   },
+  city: {
+    type: String,
+    enum: ["Paris", "Lille", "Marseille"],
+    required: true,
+  },
+  profilePicture: String,
 });
 
 const UserModel = mongoose.model("User", userSchema);

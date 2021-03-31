@@ -5,8 +5,9 @@ module.exports.signup = async (req, res, next) => {
   try {
     const body = req.body;
     const newUser = await UserModel.create(body);
+    console.log(newUser.userName);
     const token = generateToken(newUser.userName);
-    res.send({ token });
+    res.status(200).json({ message: "You are now registered!", token: token });
   } catch (err) {
     res.status(400).send(err);
     console.log(err);
@@ -26,7 +27,7 @@ module.exports.login = async (req, res, next) => {
       return res.status(401).json("Password invalid");
     }
     const token = generateToken(user.userName);
-    return res.json({ token });
+    return res.status(200).json({ message: "You are logged in", token: token });
   } catch (err) {
     console.log(err);
     res.status(404).json({
